@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo リスト</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@1,700&family=Sawarabi+Mincho&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div id="app">
+            <h2><i class="fas fa-check"></i>　Todo リスト</h2>
+
+            <form v-on:submit.prevent class="todo-into">
+                <input type="text" v-model="newItem">
+                <button v-on:click="addItem" class="add-btn">追加</button>
+            </form>
+
+            <transition-group name="todo-list" tag="ul" class="make-todo">
+                <li v-for="(todo,index) in todos" v-bind:key="todo.item" class="list-complete-item">
+                    <input type="checkbox" v-model="todo.isDone" v-on:change="saveTodo" class="list-complete-item">　
+                    <span v-bind:class="{done: todo.isDone}">{{todo.item}}</span>
+                    <button v-on:click="deleteItem(index)">完了</button>
+                </li>　
+            </transition-group>
+
+            <button v-on:click="deleteChecked(), saveTodo()">チェック済みの項目を全て解除</button>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
